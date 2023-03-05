@@ -1,5 +1,5 @@
 export const apiEndpoints = {
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://test-todo-api-production.up.railway.app",
 
   auth: {
     loginUser: "/authentification",
@@ -11,7 +11,5 @@ export const apiEndpoints = {
     updateTodo: "/todos",
     getAllTodos: "/todos",
   },
-  nestedTodo: {
-    
-  },
+  nestedTodo: {},
 };
