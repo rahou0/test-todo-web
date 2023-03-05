@@ -1,9 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { apiEndpoints } from "../../config";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
-  baseQuery: `${apiEndpoints.baseUrl}`,
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${apiEndpoints.baseUrl}`,
+  }),
   tagTypes: ["Todos"],
   endpoints: (builder) => ({
     createTodo: builder.mutation({
@@ -50,7 +53,7 @@ export const todoApi = createApi({
               { type: "Todos", id: "LIST" },
             ]
           : [{ type: "Todos", id: "LIST" }],
-      transformResponse: (results) => results.data,
+      transformResponse: (results) => results,
     }),
     deleteTodo: builder.mutation({
       query(id) {

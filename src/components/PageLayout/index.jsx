@@ -10,6 +10,8 @@ const Container = styled.div`
   min-height: 100vh;
   height: 100%;
   overflow: hidden;
+  padding: 0px 30px;
+  box-sizing: border-box;
 `;
 function PageLayout({ children }) {
   return (
