@@ -1,17 +1,11 @@
 import React from "react";
 import LoginPage from "../pages/LoginPage";
+import { useCookies } from "react-cookie";
 
 function AuthMiddleware({ children }) {
-  const user = LoggedUserData();
-
-  if (!user) return <LoginPage />;
-
+  const [cookies] = useCookies(["logged_in"]);
+  if (!cookies?.logged_in) return <LoginPage />;
   return children;
 }
 
-function LoggedUserData() {
-  const userData = localStorage.getItem("todoLoggedUser");
-  if (userData) return JSON.parse(userData);
-  return null;
-}
 export default AuthMiddleware;
