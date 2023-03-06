@@ -1,40 +1,15 @@
 import React, { useEffect } from "react";
-import {
-  useLoginUserMutation,
-  useRegisterUserMutation,
-} from "../../redux/api/authApi";
+import { useLoginUserMutation } from "../../../redux/api/authApi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Typography, Paper, TextField } from "@mui/material";
-import styled from "styled-components";
-import { toast } from "react-toastify";
+import { Button, Typography, TextField } from "@mui/material";
 import { useCookies } from "react-cookie";
+import AuthCard from "../AuthCard";
+import { show_notification } from "../../../utils/notificationHelper";
 
-const Container = styled(Paper)`
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-  padding: 30px;
-  box-sizing: border-box;
-`;
-
-const Title = styled(Typography)``;
-function LoginForm() {
+function LoginCard() {
   const [cookies, setCookie] = useCookies(["logged_in"]);
   const [loginUser, { isLoading, data, isSuccess }] = useLoginUserMutation();
-
-  const [
-    registerUser,
-    {
-      isLoading: isLoadingRegistration,
-      data: dataRegister,
-      isSuccess: isSuccessRegister,
-    },
-  ] = useRegisterUserMutation();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -53,33 +28,20 @@ function LoginForm() {
       if (data[0]) {
         setCookie("logged_in", JSON.stringify(data[0]));
         formik.resetForm();
-        toast.success("You successfully logged in");
+        show_notification("You successfully logged in");
       } else {
-        registerUser(formik.values.email);
+        show_notification("You dont have an account!", "error");
       }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  useEffect(() => {
-    if (isSuccessRegister) {
-      if (dataRegister) {
-        setCookie("logged_in", JSON.stringify(dataRegister));
-        formik.resetForm();
-        toast.success("You successfully registred and logged in");
-      } else {
-        toast.error("Failed to register a user");
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoadingRegistration]);
   return (
-    <Container>
-      <Title variant="h3" component="h3">
-        Login
-      </Title>
+    <AuthCard>
+      <Typography variant="h4" component="h4">
+        Welcome Back :)
+      </Typography>
       <TextField
         sx={{ minWidth: "300px" }}
         error={Boolean(formik.touched.email && formik.errors.email)}
@@ -87,9 +49,10 @@ function LoginForm() {
         helperText={formik.touched.email && formik.errors.email}
         label="Email"
         name="email"
+        type="email"
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        disabled={isLoading || isLoadingRegistration}
+        disabled={isLoading}
         required
         value={formik.values.email}
         placeholder="test@test.com"
@@ -97,7 +60,7 @@ function LoginForm() {
       <Button
         sx={{ minHeight: "45px" }}
         color="primary"
-        disabled={isLoading || isLoadingRegistration}
+        disabled={isLoading}
         onClick={() => {
           formik.handleSubmit();
         }}
@@ -106,8 +69,8 @@ function LoginForm() {
       >
         Login
       </Button>
-    </Container>
+    </AuthCard>
   );
 }
 
-export default LoginForm;
+export default LoginCard;

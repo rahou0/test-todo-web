@@ -21,21 +21,39 @@ export const todoApi = createApi({
       transformResponse: (result) => result.data,
     }),
     updateTodo: builder.mutation({
-      query(id, todo) {
+      query(data) {
+        const { payload, id } = data;
         return {
           url: `${apiEndpoints.todo.updateTodo}/${id}`,
           method: "PATCH",
-          body: todo,
+          body: payload,
         };
       },
+      // async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+      //   console.log(typeof id === "string");
+      //   const patchResult = dispatch(
+      //     todoApi.util.updateQueryData("getAllTodos", "205", (todos) => {
+      //       console.log("helllo");
+      //       return todos.map((todo) => {
+      //         if (todo.id !== id) return todo;
+      //         todo.pos = patch.pos;
+      //       });
+      //     })
+      //   );
+      //   try {
+      //     await queryFulfilled;
+      //   } catch {
+      //     patchResult.undo();
+      //   }
+      // },
       invalidatesTags: (result, error, { id }) =>
         result
           ? [
-              { type: "Posts", id },
-              { type: "Posts", id: "LIST" },
+              { type: "Todos", id },
+              { type: "Todos", id: "LIST" },
             ]
-          : [{ type: "Posts", id: "LIST" }],
-      transformResponse: (response) => response.data,
+          : [{ type: "Todos", id: "LIST" }],
+      transformResponse: (response) => response,
     }),
     getAllTodos: builder.query({
       query(userId) {
@@ -53,7 +71,16 @@ export const todoApi = createApi({
               { type: "Todos", id: "LIST" },
             ]
           : [{ type: "Todos", id: "LIST" }],
-      transformResponse: (results) => results,
+      transformResponse: (results) => {
+        //sort the todos based position
+        let sortedTodos = results?.sort((a, b) =>
+          a.pos > b.pos ? 1 : b.pos > a.pos ? -1 : 0
+        );
+        //convert id to string for drag and drop;
+        return sortedTodos.map((item) => {
+          return { ...item, id: item.id?.toString() };
+        });
+      },
     }),
     deleteTodo: builder.mutation({
       query(id) {
@@ -62,7 +89,7 @@ export const todoApi = createApi({
           method: "Delete",
         };
       },
-      invalidatesTags: [{ type: "Posts", id: "LIST" }],
+      invalidatesTags: [{ type: "Todos", id: "LIST" }],
     }),
   }),
 });

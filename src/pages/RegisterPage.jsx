@@ -1,5 +1,5 @@
 import React from "react";
-import LoginCard from "../components/Auth/LoginCard";
+import RegisterCard from "../components/Auth/RegisterCard";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -12,12 +12,12 @@ const Container = styled.div`
   min-height: 100vh;
   gap: 30px;
 `;
-function LoginPage() {
+function RegisterPage() {
   return (
     <Container>
-      <LoginCard />
+      <RegisterCard />
     </Container>
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

@@ -11,5 +11,10 @@ export const apiEndpoints = {
     updateTodo: "/todos",
     getAllTodos: "/todos",
   },
-  nestedTodo: {},
+  nestedTodo: {
+    createTodo: "/nestedTodos",
+    deleteTodo: "/nestedTodos",
+    updateTodo: "/nestedTodos",
+    getAllTodos: "/nestedTodos",
+  },
 };
