@@ -69,12 +69,7 @@ function Todo({ todo }) {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
-  const {
-    isLoading,
-    isError,
-    error,
-    data: nestedTodos,
-  } = useGetAllNestedTodosQuery(todo?.id);
+  const { data: nestedTodos } = useGetAllNestedTodosQuery(todo?.id);
 
   const onCloseEditDialog = () => setOpenEditDialog(false);
   const onOpenEditDialog = (e) => {

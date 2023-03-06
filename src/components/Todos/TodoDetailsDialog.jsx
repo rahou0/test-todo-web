@@ -11,7 +11,6 @@ import {
 import moment from "moment";
 import React from "react";
 import SubTodosList from "../SubTodos/SubTodosList";
-import Todo from "./Todo";
 
 function TodoDetailsDialog({ todo, open, onClose, nestedTodos }) {
   return (

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Paper, Typography } from "@mui/material";
 import SubTodoStatus from "./SubTodoStatus";
-// import EditTodoDialog from "../EditTodoDialog";
 import styled from "styled-components";
-// import TodoDetailsDialog from "../TodoDetailsDialog";
 import EditIconButton from "../Global/Buttons/EditIconButton";
 import DeleteIconButton from "../Global/Buttons/DeleteIconButton";
 import DeleteNestedTodoDialog from "./DeleteNestedTodoDialog";
 import EditNestedTodoDialog from "./EditNestedTodoDialog";
 import NestedTodoDetailsDialog from "./NestedTodoDetailsDialog";
-// import DeleteTodoDialog from "../DeleteTodoDialog";
 
 const Container = styled(Paper)`
   width: 100%;
@@ -38,9 +35,6 @@ const LeftInnerContainer = styled.div`
   flex-direction: column;
   max-width: calc(100% - 57px);
   box-sizing: border-box;
-`;
-const SubTask = styled(Typography)`
-  margin-top: 0px !important;
 `;
 
 const EndDate = styled(Typography)`

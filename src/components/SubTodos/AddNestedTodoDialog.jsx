@@ -52,6 +52,7 @@ function AddNestedTodoDialog({ open, todoId, onClose }) {
       onClose();
       show_notification("Your Nested Todo is successfully added");
     } else if (isError) {
+      console.log(error);
       show_notification("Failed to add your Nested Todo", "error");
     }
 

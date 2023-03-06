@@ -63,6 +63,7 @@ function AddTodoDialog({ open, onClose }) {
       onClose();
       show_notification("Your Todo is successfully added");
     } else if (isError) {
+      console.log(error);
       show_notification("Failed to add your Todo", "error");
     }
 

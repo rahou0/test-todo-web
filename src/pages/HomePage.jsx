@@ -4,15 +4,12 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import TodoList from "../components/Todos/TodoList";
 import AddTodoDialog from "../components/Todos/AddTodoDialog";
-// import Logo from "../components/Logo";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
   min-height: 100vh;
   gap: 15px;
 `;

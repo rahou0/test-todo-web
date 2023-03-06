@@ -60,7 +60,7 @@ function RegisterCard() {
         placeholder="test@test.com"
       />
       <Button
-        sx={{ minHeight: "45px" }}
+        sx={{ minHeight: "45px", color: "white" }}
         color="primary"
         disabled={isLoading}
         onClick={() => {

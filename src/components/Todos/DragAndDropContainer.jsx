@@ -4,15 +4,12 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Todo from "./Todo";
 import BackDrop from "../Global/BackDrop";
 import { useUpdateTodoMutation } from "../../redux/api/todoApi";
-import { useAppDispatch } from "../../redux/store";
 
 const DragItem = styled.div``;
 
 function DragAndDropContainer({ todos }) {
-  // const [list, setList] = useState(todos);
   const [updateTodo, { isLoading }] = useUpdateTodoMutation();
   const onDragEnd = (result) => {
-    //switch the source with the destination
     if (!result.destination) return;
 
     const newItems = Array.from(todos);
@@ -22,12 +19,6 @@ function DragAndDropContainer({ todos }) {
       let payload = { payload: { pos: index + 1 }, id: item.id };
       updateTodo(payload);
     });
-    // setList(newItems);
-    // dispatch(
-    //   api.util.updateQueryData("getPosts", undefined, (draftPosts) => {
-    //     draftPosts.push({ id: 1, name: "Teddy" });
-    //   })
-    // );
   };
 
   return (
