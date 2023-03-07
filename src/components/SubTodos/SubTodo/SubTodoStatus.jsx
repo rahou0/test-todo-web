@@ -1,9 +1,9 @@
 import { Checkbox } from "@mui/material";
 import React from "react";
-import BackDrop from "../Global/BackDrop";
+import BackDrop from "../../Global/BackDrop";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { useUpdateNestedTodoMutation } from "../../redux/api/nestedTodoApi";
+import { useUpdateNestedTodoMutation } from "../../../redux/api/nestedTodoApi";
 function SubTodoStatus({ todo }) {
   const [updateNestedTodo, { isLoading }] = useUpdateNestedTodoMutation();
   const handleChange = (e) => {

@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { useDeleteNestedTodoMutation } from "../../redux/api/nestedTodoApi";
-import { show_notification } from "../../utils/notificationHelper";
-import BackDrop from "../Global/BackDrop";
+import { useDeleteNestedTodoMutation } from "../../../redux/api/nestedTodoApi";
+import { show_notification } from "../../../utils/notificationHelper";
+import BackDrop from "../../Global/BackDrop";
 
 function DeleteNestedTodoDialog({ open, nestedTodo, onClose }) {
   const [deleteNestedTodo, { isLoading, error, isSuccess, isError }] =

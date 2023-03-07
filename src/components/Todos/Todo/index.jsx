@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Paper, Typography } from "@mui/material";
-import TodoStatus from "./TodoStatus";
-import EditTodoDialog from "../EditTodoDialog";
 import styled from "styled-components";
-import TodoDetailsDialog from "../TodoDetailsDialog";
+
+import TodoStatus from "./TodoStatus";
+
+import EditTodoDialog from "../DialogModals/EditTodoDialog";
+import TodoDetailsDialog from "../DialogModals/TodoDetailsDialog";
+import DeleteTodoDialog from "../DialogModals/DeleteTodoDialog";
+
+import ViewIconButton from "../../Global/Buttons/ViewIconButton";
 import EditIconButton from "../../Global/Buttons/EditIconButton";
 import DeleteIconButton from "../../Global/Buttons/DeleteIconButton";
-import DeleteTodoDialog from "../DeleteTodoDialog";
+
 import { useGetAllNestedTodosQuery } from "../../../redux/api/nestedTodoApi";
 
 const Container = styled(Paper)`
@@ -21,6 +26,10 @@ const Container = styled(Paper)`
   border-radius: 8px;
   background-color: #fff;
   justify-content: space-between;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 const Title = styled(Typography)`
   text-overflow: ellipsis;
@@ -33,27 +42,44 @@ const Title = styled(Typography)`
 const LeftInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 57px);
+  max-width: calc(100% - 42px);
   box-sizing: border-box;
 `;
 const SubTask = styled(Typography)`
   margin-top: 0px !important;
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 
+const MobileSubTask = styled(Typography)`
+  display: none;
+  @media (max-width: 576px) {
+    display: block;
+  }
+`;
 const EndDate = styled(Typography)`
   min-width: 80px;
   text-decoration: ${({ iscompleted }) =>
     iscompleted ? "line-through" : "none"};
-  margin-right: 20px !important;
+  margin-right: 10px !important;
   padding-top: 3px;
+  @media (max-width: 576px) {
+    padding: 0px;
+    margin-right: 0px !important;
+  }
 `;
 const LeftContainer = styled.div`
   display: flex;
-  gap: 15px;
   align-items: center;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
   max-width: calc(100% - 190px);
+  @media (max-width: 567px) {
+    max-width: 100%;
+    padding-right: 10px;
+  }
 `;
 const ActionsContainer = styled.div`
   display: flex;
@@ -63,6 +89,22 @@ const ActionsContainer = styled.div`
   justify-content: flex-end;
   height: 100%;
   box-sizing: border-box;
+  @media (max-width: 576px) {
+    min-width: 100%;
+    max-width: 100%;
+    padding-left: 10px;
+    justify-content: space-between;
+  }
+`;
+const ActionsLeftContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+`;
+const ActionsRightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
 `;
 function Todo({ todo }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -96,7 +138,7 @@ function Todo({ todo }) {
               sx={{ fontWeight: 600 }}
               iscompleted={todo.completed ? 1 : 0}
             >
-              {todo?.title}
+              {todo?.title ?? ""}
             </Title>
             {nestedTodos?.length > 0 && (
               <SubTask sx={{ fontSize: "0.8rem" }}>
@@ -111,13 +153,28 @@ function Todo({ todo }) {
         </LeftContainer>
 
         <ActionsContainer>
-          {todo?.endDate && (
-            <EndDate iscompleted={todo.completed ? 1 : 0}>
-              {todo?.endDate}
-            </EndDate>
-          )}
-          <EditIconButton onHandleClick={onOpenEditDialog} />
-          <DeleteIconButton onHandleClick={onOpenDeleteDialog} />
+          <ActionsLeftContainer>
+            {nestedTodos?.length > 0 && (
+              <MobileSubTask sx={{ mr: 1 }}>
+                {
+                  nestedTodos?.filter((nestedTodo) => nestedTodo.completed)
+                    .length
+                }
+                /{nestedTodos?.length}
+              </MobileSubTask>
+            )}
+            {todo?.endDate && (
+              <EndDate iscompleted={todo.completed ? 1 : 0}>
+                {todo?.endDate}
+              </EndDate>
+            )}
+          </ActionsLeftContainer>
+
+          <ActionsRightContainer>
+            <ViewIconButton onHandleClick={onOpenDetailsDialog} />
+            <EditIconButton onHandleClick={onOpenEditDialog} />
+            <DeleteIconButton onHandleClick={onOpenDeleteDialog} />
+          </ActionsRightContainer>
         </ActionsContainer>
       </Container>
       {openDeleteDialog && (

@@ -1,72 +1,27 @@
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Grid,
   TextField,
 } from "@mui/material";
-import { useFormik } from "formik";
-import React, { useEffect } from "react";
-import * as Yup from "yup";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import moment from "moment";
-import { DatePicker } from "@mui/x-date-pickers";
-import { show_notification } from "../../utils/notificationHelper";
-import { useCreateNestedTodoMutation } from "../../redux/api/nestedTodoApi";
+import React from "react";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import BackDrop from "../BackDrop";
 
-function AddNestedTodoDialog({ open, todoId, onClose }) {
-  const [createNestedTodo, { isLoading, isError, error, isSuccess }] =
-    useCreateNestedTodoMutation();
-
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      title: "",
-      description: "",
-      endDate: null,
-    },
-    validationSchema: Yup.object().shape({
-      title: Yup.string().required("Title is required"),
-      description: Yup.string().optional("Description is optional"),
-    }),
-    onSubmit: async (values, helpers) => {
-      //create todo payload
-      const payload = {
-        todoId: todoId,
-        title: values.title,
-        description: values.description,
-        endDate: values.endDate,
-        completed: false,
-      };
-
-      createNestedTodo(payload);
-    },
-  });
-
-  useEffect(() => {
-    if (isSuccess) {
-      formik.resetForm();
-      onClose();
-      show_notification("Your Nested Todo is successfully added");
-    } else if (isError) {
-      console.log(error);
-      show_notification("Failed to add your Nested Todo", "error");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+function TodoForm({ isLoading, title, formik, onClose }) {
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{"Add New Nested Todo"}</DialogTitle>
+    <>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <p></p>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
-              sx={{ minWidth: "300px" }}
+              sx={{ sm: { minWidth: "100%" }, md: { minWidth: "300px" } }}
               error={Boolean(formik.touched.title && formik.errors.title)}
               fullWidth
               helperText={formik.touched.title && formik.errors.title}
@@ -77,12 +32,12 @@ function AddNestedTodoDialog({ open, todoId, onClose }) {
               disabled={isLoading}
               required
               value={formik.values.title}
-              placeholder="Title of the Nested Todo"
+              placeholder="Title of the Todo"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              sx={{ minWidth: "300px" }}
+              sx={{ sm: { minWidth: "100%" }, md: { minWidth: "300px" } }}
               error={Boolean(
                 formik.touched.description && formik.errors.description
               )}
@@ -96,7 +51,7 @@ function AddNestedTodoDialog({ open, todoId, onClose }) {
               onChange={formik.handleChange}
               disabled={isLoading}
               value={formik.values.description}
-              placeholder="Description of the Nested Todo"
+              placeholder="Description of the Todo"
               multiline
               maxRows={4}
               minRows={4}
@@ -152,8 +107,9 @@ function AddNestedTodoDialog({ open, todoId, onClose }) {
           Add
         </Button>
       </DialogActions>
-    </Dialog>
+      <BackDrop open={isLoading} />
+    </>
   );
 }
 
-export default AddNestedTodoDialog;
+export default TodoForm;

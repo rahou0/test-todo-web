@@ -5,13 +5,14 @@ import { useGetAllTodosQuery } from "../../redux/api/todoApi";
 import { show_notification } from "../../utils/notificationHelper";
 import DragAndDropContainer from "./DragAndDropContainer";
 import EmptyTodoList from "./EmptyTodoList";
-import TodoListSkeleton from "./TodoListSkeleton";
+import TodoListSkeleton from "./Skeletons/TodoListSkeleton";
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 30px;
   margin-bottom: 30px;
+  margin-top: 80px;
 `;
 function TodoList() {
   const [cookies] = useCookies(["logged_in"]);

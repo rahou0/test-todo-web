@@ -20,6 +20,7 @@ function TodoStatus({ todo }) {
   return (
     <>
       <Checkbox
+      
         checked={todo?.completed}
         onChange={handleChange}
         onClick={handleClick}

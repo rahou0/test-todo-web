@@ -6,8 +6,8 @@ import React from "react";
 function EditIconButton({ onHandleClick }) {
   return (
     <>
-      <IconButton onClick={onHandleClick}>
-        <EditIcon color="secondary" />
+      <IconButton onClick={onHandleClick} size="small">
+        <EditIcon color="secondary" fontSize="small" />
       </IconButton>
     </>
   );

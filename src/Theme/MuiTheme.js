@@ -16,7 +16,7 @@ export const muiTheme = createTheme({
     },
     body2: {
       lineHeight: 1.6,
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: 400,
     },
   },
@@ -24,9 +24,10 @@ export const muiTheme = createTheme({
     primary: { main: "#a18aff", secondary: "#3fd4f4" },
     secondary: { main: "#3fd4f4" },
     error: { main: "#fe859e" },
-    // text: {
-    //   primary: "#000",
-    //   secondary: "#fff",
-    // },
+    success: { main: "#14C38E" },
+    text: {
+      success: "#14C38E",
+      info: "#3fd4f4",
+    },
   },
 });

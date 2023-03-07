@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
-import { useDeleteTodoMutation } from "../../redux/api/todoApi";
-import { show_notification } from "../../utils/notificationHelper";
-import BackDrop from "../Global/BackDrop";
+import { useDeleteTodoMutation } from "../../../redux/api/todoApi";
+import { show_notification } from "../../../utils/notificationHelper";
+import BackDrop from "../../Global/BackDrop";
 
 function DeleteTodoDialog({ open, todo, onClose }) {
   const [deleteTodo, { isLoading, error, isSuccess, isError }] =

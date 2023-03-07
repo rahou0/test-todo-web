@@ -6,8 +6,8 @@ import React from "react";
 function DeleteIconButton({ onHandleClick }) {
   return (
     <>
-      <IconButton onClick={onHandleClick}>
-        <DeleteIcon color="error" />
+      <IconButton onClick={onHandleClick} size="small">
+        <DeleteIcon color="error" fontSize="small" />
       </IconButton>
     </>
   );

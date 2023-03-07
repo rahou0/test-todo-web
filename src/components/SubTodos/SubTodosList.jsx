@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import AddNestedTodoDialog from "./AddNestedTodoDialog";
+import AddNestedTodoDialog from "./DialogModals/AddNestedTodoDialog";
 import AddNewSubTodo from "./AddNewSubTodo";
-import SubTodo from "./SubTodo";
+import SubTodo from "./SubTodo/index";
 
 const Container = styled.div`
   width: 100%;

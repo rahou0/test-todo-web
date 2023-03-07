@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Paper, Typography } from "@mui/material";
-import SubTodoStatus from "./SubTodoStatus";
 import styled from "styled-components";
-import EditIconButton from "../Global/Buttons/EditIconButton";
-import DeleteIconButton from "../Global/Buttons/DeleteIconButton";
-import DeleteNestedTodoDialog from "./DeleteNestedTodoDialog";
-import EditNestedTodoDialog from "./EditNestedTodoDialog";
-import NestedTodoDetailsDialog from "./NestedTodoDetailsDialog";
+
+import SubTodoStatus from "./SubTodoStatus";
+
+import EditIconButton from "../../Global/Buttons/EditIconButton";
+import DeleteIconButton from "../../Global/Buttons/DeleteIconButton";
+import ViewIconButton from "../../Global/Buttons/ViewIconButton";
+
+import DeleteNestedTodoDialog from "../DialogModals/DeleteNestedTodoDialog";
+import EditNestedTodoDialog from "../DialogModals/EditNestedTodoDialog";
+import NestedTodoDetailsDialog from "../DialogModals/NestedTodoDetailsDialog";
 
 const Container = styled(Paper)`
   width: 100%;
@@ -21,6 +25,10 @@ const Container = styled(Paper)`
   background-color: #fff;
   justify-content: space-between;
   cursor: pointer;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 const Title = styled(Typography)`
   text-overflow: ellipsis;
@@ -33,7 +41,7 @@ const Title = styled(Typography)`
 const LeftInnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 57px);
+  max-width: calc(100% - 42px);
   box-sizing: border-box;
 `;
 
@@ -41,16 +49,23 @@ const EndDate = styled(Typography)`
   min-width: 80px;
   text-decoration: ${({ iscompleted }) =>
     iscompleted ? "line-through" : "none"};
-  margin-right: 20px !important;
+  margin-right: 10px !important;
   padding-top: 3px;
+  @media (max-width: 576px) {
+    padding: 3px;
+    margin-right: 0px !important;
+  }
 `;
 const LeftContainer = styled.div`
   display: flex;
-  gap: 15px;
   align-items: center;
   height: 100%;
   box-sizing: border-box;
   max-width: calc(100% - 190px);
+  @media (max-width: 567px) {
+    max-width: 100%;
+    padding-right: 10px;
+  }
 `;
 const ActionsContainer = styled.div`
   display: flex;
@@ -60,6 +75,25 @@ const ActionsContainer = styled.div`
   justify-content: flex-end;
   height: 100%;
   box-sizing: border-box;
+  @media (max-width: 576px) {
+    min-width: 100%;
+    max-width: 100%;
+    padding-left: 10px;
+    justify-content: space-between;
+  }
+  @media (max-width: 325px) {
+    flex-direction: column;
+    align-items: start;
+  }
+`;
+const ActionsRightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  @media (max-width: 325px) {
+    width: 100%;
+    justify-content: flex-end;
+  }
 `;
 function SubTodo({ nestedTodo }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -102,8 +136,11 @@ function SubTodo({ nestedTodo }) {
               {nestedTodo?.endDate}
             </EndDate>
           )}
-          <EditIconButton onHandleClick={onOpenEditDialog} />
-          <DeleteIconButton onHandleClick={onOpenDeleteDialog} />
+          <ActionsRightContainer>
+            <ViewIconButton onHandleClick={onOpenDetailsDialog} />
+            <EditIconButton onHandleClick={onOpenEditDialog} />
+            <DeleteIconButton onHandleClick={onOpenDeleteDialog} />
+          </ActionsRightContainer>
         </ActionsContainer>
       </Container>
       {openDeleteDialog && (

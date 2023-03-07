@@ -12,10 +12,7 @@ const Container = styled.div`
   overflow: hidden;
   padding: 0px 30px;
   box-sizing: border-box;
-  /* background-color: rgba(228, 228, 228, 0.2); */
-  /* background-color: rgb(215 222 245, 0.4); */
   background-color: #a18aff;
-  /* 987eff */
 `;
 function PageLayout({ children }) {
   return (
