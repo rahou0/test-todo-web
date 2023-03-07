@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 const options = {
-  autoClose: 3000,
+  autoClose: 2000,
   hideProgressBar: true,
   position: toast.POSITION.TOP_CENTER,
   closeButton: false,

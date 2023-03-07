@@ -10,12 +10,18 @@ const DragItem = styled.div``;
 function DragAndDropContainer({ todos }) {
   const [updateTodo, { isLoading }] = useUpdateTodoMutation();
   const onDragEnd = (result) => {
+    // if the user drops the todo card outside of a droppable destination
     if (!result.destination) return;
+
+    // if the user didnt change the position of the todo card
     if (result.destination.index === result.source.index) return;
 
+    // If the user drop in a different postion then reorder the todo list
     const newItems = Array.from(todos);
     const [removed] = newItems.splice(result.source.index, 1);
     newItems.splice(result.destination.index, 0, removed);
+
+    // update each todo position based on thier index
     newItems.forEach((item, index) => {
       let payload = { payload: { pos: index + 1 }, id: item.id };
       updateTodo(payload);
@@ -28,7 +34,7 @@ function DragAndDropContainer({ todos }) {
         <Droppable droppableId="droppable">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {todos.map((todo, index) => (
+              {todos?.map((todo, index) => (
                 <Draggable key={todo.id} draggableId={todo.id} index={index}>
                   {(provided, snapshot) => (
                     <DragItem

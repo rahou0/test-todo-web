@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import TodoList from "../components/Todos/TodoList";
 import AddTodoDialog from "../components/Todos/DialogModals/AddTodoDialog";
 import NavBar from "../components/NavBar";
+import WelcomeText from "../components/Global/WelcomeText";
 
 const Container = styled.div`
   width: 100%;
@@ -21,19 +22,6 @@ const fabStyle = {
   backgroundColor: "#3fd4f4",
   color: "#fff",
 };
-const Title = styled.p`
-  margin: 0px;
-  font-size: 30px;
-  font-size: 4rem;
-
-  /* font-family: cursive; */
-  /* font-family: Roboto; */
-`;
-const Text = styled.p`
-  margin: 0px;
-  margin-top: -15px !important;
-  font-size: 1rem;
-`;
 
 function HomePage() {
   const [open, setOpen] = useState(false);
@@ -42,10 +30,7 @@ function HomePage() {
   return (
     <Container>
       <NavBar />
-
-      {/* <Logo /> */}
-      {/* <Title>Todo's</Title>
-      <Text>3 Total, 2 Completed and 1 Pending</Text> */}
+      <WelcomeText />
       <TodoList />
       <Fab color="primary" sx={fabStyle} onClick={onOpen}>
         <AddIcon />

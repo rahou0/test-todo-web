@@ -7,7 +7,7 @@ export const todoApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${apiEndpoints.baseUrl}`,
   }),
-  //add todos tag to all incoming todos data
+  //add Todos tag to all incoming todos data
   tagTypes: ["Todos"],
   endpoints: (builder) => ({
     // add new todo request

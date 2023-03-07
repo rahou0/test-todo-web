@@ -10,7 +10,8 @@ const Container = styled.div`
   gap: 50px;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  /* height: 80vh; */
+  margin-top: 0px;
 `;
 
 const ImageContainer = styled.img`

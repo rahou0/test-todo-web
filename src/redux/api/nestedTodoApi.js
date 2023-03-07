@@ -7,8 +7,10 @@ export const nestedTodoApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${apiEndpoints.baseUrl}`,
   }),
+  //add NestedTodos tag to all incoming nested todos data
   tagTypes: ["NestedTodos"],
   endpoints: (builder) => ({
+    // add new NestedTodo request
     createNestedTodo: builder.mutation({
       query(todo) {
         return {
@@ -17,6 +19,7 @@ export const nestedTodoApi = createApi({
           body: todo,
         };
       },
+      // move the cashed tags to invalidate to fetch the new NestedTodos list
       invalidatesTags: [{ type: "NestedTodos", id: "LIST" }],
       transformResponse: (result) => result.data,
     }),

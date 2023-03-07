@@ -3,7 +3,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Montserrat','Shantell Sans',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-    font-family: 'Roboto',  'Montserrat', 'Shantell Sans', sans-serif;
+    font-family: 'Roboto', 'Ubuntu', 'Montserrat', sans-serif,'Libre Baskerville',
+      serif,'Shantell Sans',
+        cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

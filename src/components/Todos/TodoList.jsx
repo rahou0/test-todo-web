@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 30px;
   margin-bottom: 30px;
-  margin-top: 80px;
+  margin-top: 50px;
 `;
 function TodoList() {
   const [cookies] = useCookies(["logged_in"]);
