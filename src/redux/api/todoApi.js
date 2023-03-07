@@ -7,8 +7,10 @@ export const todoApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${apiEndpoints.baseUrl}`,
   }),
+  //add todos tag to all incoming todos data
   tagTypes: ["Todos"],
   endpoints: (builder) => ({
+    // add new todo request
     createTodo: builder.mutation({
       query(todo) {
         return {
@@ -17,9 +19,12 @@ export const todoApi = createApi({
           body: todo,
         };
       },
+      // move the cashed tags to invalidate to fetch the new todo list
       invalidatesTags: [{ type: "Todos", id: "LIST" }],
+
       transformResponse: (result) => result.data,
     }),
+    // update todo request
     updateTodo: builder.mutation({
       query(data) {
         const { payload, id } = data;
@@ -29,23 +34,8 @@ export const todoApi = createApi({
           body: payload,
         };
       },
-      // async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-      //   console.log(typeof id === "string");
-      //   const patchResult = dispatch(
-      //     todoApi.util.updateQueryData("getAllTodos", "205", (todos) => {
-      //       console.log("helllo");
-      //       return todos.map((todo) => {
-      //         if (todo.id !== id) return todo;
-      //         todo.pos = patch.pos;
-      //       });
-      //     })
-      //   );
-      //   try {
-      //     await queryFulfilled;
-      //   } catch {
-      //     patchResult.undo();
-      //   }
-      // },
+
+      // move the cashed tag of the updated todo to invalidate tags list to fetch the updated todo list
       invalidatesTags: (result, error, { id }) =>
         result
           ? [
@@ -55,12 +45,14 @@ export const todoApi = createApi({
           : [{ type: "Todos", id: "LIST" }],
       transformResponse: (response) => response,
     }),
+    // fetch all user todos
     getAllTodos: builder.query({
       query(userId) {
         return {
           url: `${apiEndpoints.todo.getAllTodos}?userId=${userId}`,
         };
       },
+      //assign a tag and id to the retrived todos for cashing
       providesTags: (result) =>
         result
           ? [
@@ -82,6 +74,7 @@ export const todoApi = createApi({
         });
       },
     }),
+    // delete todo request
     deleteTodo: builder.mutation({
       query(id) {
         return {
@@ -89,6 +82,7 @@ export const todoApi = createApi({
           method: "Delete",
         };
       },
+      // move the cashed tag of the deleted todo to invalidate tags list to fetch the updated todo list
       invalidatesTags: [{ type: "Todos", id: "LIST" }],
     }),
   }),

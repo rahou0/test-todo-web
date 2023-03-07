@@ -11,6 +11,7 @@ function DragAndDropContainer({ todos }) {
   const [updateTodo, { isLoading }] = useUpdateTodoMutation();
   const onDragEnd = (result) => {
     if (!result.destination) return;
+    if (result.destination.index === result.source.index) return;
 
     const newItems = Array.from(todos);
     const [removed] = newItems.splice(result.source.index, 1);

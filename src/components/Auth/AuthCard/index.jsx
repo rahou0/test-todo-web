@@ -17,6 +17,7 @@ const Container = styled(Paper)`
   box-sizing: border-box;
 `;
 
+//to add small animations
 const InnerContainer = styled(motion.div)`
   width: 100%;
   display: flex;
@@ -29,7 +30,10 @@ const InnerContainer = styled(motion.div)`
 `;
 
 function getActiveIndexFromPath(path) {
+  //get the the active tab based on the current path (register/login)
   if (path?.includes("/register")) return 1;
+
+  //by default return the index of the login tab
   return 0;
 }
 function AuthCard({ buttonText, title, formik, isLoading }) {
@@ -39,6 +43,8 @@ function AuthCard({ buttonText, title, formik, isLoading }) {
   );
   const handleChange = (event, newIndex) => {
     if (newIndex === activeIndex) return;
+
+    //change active index tab and update the url to the new index
     setActiveIndex(newIndex);
     history.push({ pathname: newIndex === 0 ? "/login" : "/register" });
   };

@@ -21,16 +21,19 @@ function RegisterCard() {
       email: Yup.string().email().required("Email is required"),
     }),
     onSubmit: async (values, helpers) => {
+      // Send a signup request
       registerUser(values.email);
     },
   });
   useEffect(() => {
+    // in success response save the email + id in a cookie
     if (isSuccess) {
       if (data) {
         setCookie("logged_in", JSON.stringify(data));
         formik.resetForm();
         show_notification("You successfully registred and logged in");
       } else {
+        //otherwise show an error message
         show_notification("Failed to register");
       }
     }

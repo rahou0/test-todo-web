@@ -8,6 +8,7 @@ export const authApi = createApi({
     baseUrl: `${apiEndpoints.baseUrl}`,
   }),
   endpoints: (builder) => ({
+    // Send the register request
     registerUser: builder.mutation({
       query(email) {
         return {
@@ -17,6 +18,7 @@ export const authApi = createApi({
         };
       },
     }),
+    // Send the login request
     loginUser: builder.mutation({
       query: (email) => ({
         url: `${apiEndpoints.auth.loginUser}?email=${email}`,
