@@ -1,6 +1,6 @@
 export const apiEndpoints = {
-  //   baseUrl: "https://test-todo-api-production.up.railway.app",
-  baseUrl: "https://test-todos-production.up.railway.app",
+  baseUrl: "https://test-todo-api-production.up.railway.app",
+  // baseUrl: "https://test-todo-production.up.railway.app",
   auth: {
     loginUser: "/authentification",
     registerUser: "/authentification",
